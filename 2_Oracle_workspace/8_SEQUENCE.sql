@@ -1,0 +1,56 @@
+-- SEQUENCE : 자동 번호 발생기
+-- 순차적으로 정수 값을 자동으로 발생시킴
+/* 
+    CREATE SEQUENCE 시퀀스명
+    [INCREMENT BY 숫자]               -- 다음 값에 대한 증가치, 생략하면 자동 1
+    [START WITH 숫자]                 -- 처음 발생시킬 시작 값, 생략하면 자동 1
+    [MAXVALUE 숫자 | NOMAXVALUE]      -- 발생시킬 최대 값, 최대 10의 27승-1
+    [MINVALUE 숫자 | NOMINVALUE]      -- 발생시킬 최소 값, 최소 -10의26승
+    [CYCLE | NOCYCLE]                -- 값의 순환 여부, CYCLE일 때 최대 값을 넘으면 최소 값으로 돌아감               
+    [CACHE 바이트크기| NOCACHE]        -- 캐시 메모리 사용 여부    
+*/
+CREATE SEQUENCE SEQ_TEST
+START WITH 300
+INCREMENT BY 5
+MAXVALUE 320
+NOCYCLE
+NOCACHE;
+
+SELECT * FROM USER_SEQUENCES;
+
+-- 시퀀스명.CURRVAL : 현재 생성된 시퀀스 값
+-- 시퀀스명.NEXTVAL : 시퀀스를 증가시킴(기존 시퀀스 값 + 증가치)
+--                   최초로 시퀀스 실행
+SELECT SEQ_TEST.CURRVAL FROM DUAL; -- 300 305 310 315 320
+-- ORA-08002: 시퀀스 SEQ_TEST.CURRVAL은 이 세션에서는 정의 되어 있지 않습니다
+SELECT SEQ_TEST.NEXTVAL FROM DUAL; -- 300 305 310 315 320
+
+/*
+    ALTER SEQUENCE 시퀀스명
+    [INCREMENT BY 숫자]
+    [MAXVALUE | NOMAXVALUE]
+    [NINVALUE | NOMINVALUE]
+    [CYCLE | COCYCLE]
+    [CACHE 바이트크기 | NOCACHE]
+*/
+ALTER SEQUENCE SEQ_TEST
+INCREMENT BY 20
+MAXVALUE 400
+MINVALUE 200
+CYCLE;
+-- ORA-04007: MINVALUE 에 현재치보다 큰 값을 지정할 수 없습니다
+-- MINVALUE 350 에서 200으로 수정
+SELECT SEQ_TEST.NEXTVAL FROM DUAL; -- 340 360 380 400 200
+SELECT SEQ_TEST.CURRVAL FROM DUAL; -- 340 360 380 400 200
+SELECT * FROM USER_SEQUENCES;
+
+-- 사용 : INSERT문, SELECT문, CREATE DEFAULT값
+INSERT INTO USER_FOREIGNKEY
+VALUES(SEQ_TEST.NEXTVAL, 'USER3', '0000', '박보배', '남', '010-1234-5678', 'PRRK123@NAVER.COM', NULL);
+
+CREATE TABLE TMP_EMPLOYEE(
+    E_ID NUMBER DEFAULT SEQ_TEST.NEXTVAL,
+    E_NAME VARCHAR2(30)
+);
+INSERT INTO TMP_EMPLOYEE VALUES(DEFAULT, '송성실');
+COMMIT;

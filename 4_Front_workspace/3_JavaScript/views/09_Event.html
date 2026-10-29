@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>이벤트</h1>
+    <h2>이벤트 설정 방법</h2>
+    <h3>고전 이벤트 모델</h3>
+    <button id="classic1">classic1 실행확인</button>
+    <button id="classic2">classic2 실행확인</button>
+    <button id="classic3">classic3 실행확인</button>
+    <script>
+        const classic1 = document.getElementById('classic1');
+        console.onclick = () => {
+            console.log('classic1이 실행되었습니다');
+        }
+        const classic2 = document.getElementById('classic2');
+        classic2.onclick = () => {
+            alert('classic2가 실행되면서 classic1이벤트를 제거하였습니다.');
+            classic1.onclick = null;
+        }
+        const classic3 = document.getElementById('classic3');
+        const classic3Func = () => {
+            alert('이름으로 연결');
+        }
+        classic3.onclick = classic3Func;
+        classic3.onmouseover = () => {
+            console.log('하나의 요소에 다양한 이벤트 동시 구현 가능');
+        }
+        classic1.onclick = () => {
+            alert('같은요소, 같은 이벤트에 여러 함수 연결이 가능할까?'); // 불가능, 마지막에 쓴걸로 덮어써짐
+        }
+    </script>
+
+    <h3>표준 이벤트 모델</h3>
+    <button id="standard1">standar1 실행확인</button>
+    <button id="standard2">standar2 실행확인</button>
+    <script>
+        const standard1 = document.getElementById('standard1');
+        const standard2 = document.getElementById('standard2');
+
+        // addEventListener(이벤트 명, 함수)
+        standard1.addEventListener('click', () => {
+            alert('standard1을 클릭했습니다.');
+        });
+        const fn_inner = () => {
+            console.log('standard1에 들어왔습니다.');
+        }
+        standard1.addEventListener('mouseover', fn_inner);
+        // 하나의 요소에 다양한 이벤트 동시 구현 가능
+        
+        // 같은 요소, 같은 이벤트에 여러 함수 연결이 가능
+        const fn_many = () => {
+             console.log('같은 요소, 같은 이벤트에 여러 함수 연결은 가능할까?'); // 가능
+        }
+        standard1.addEventListener('click', fn_many);
+
+        standard2.addEventListener('dblclick', () => {
+            alert('standard2가 실행되면서 standard1의 클릭 이벤트 중 하나 제거');
+            standard1.removeEventListener('click', fn_many); 
+            // removeEventListener()에서 직접 함수를 작성하면 삭제가 되지 않음
+        })
+        window.onload = () => {
+            standard1.style.color = 'red';
+        }
+        window.onload = () => {
+            standard1.style.color = 'gray';
+        }
+        window.addEventListener('load', () => {
+            standard1.style.fontSize = '20px';
+        })
+        window.addEventListener('load', () => {
+            standard1.style.border = '5px solid blue';
+        })       
+    </script>
+
+    <h4>이벤트 객체</h4>
+    <button id="reverse">reverse 실행확인</button>
+    <script>
+        const reverse = document.getElementById('reverse');
+        // reverse실행확인 버튼을 클릭할 때마다 버튼의 배경색과 글자색이 변하게 하기
+        // (0회 클릭) 기본 -> (1회클릭) 배경 검정 글자 하양 -> (2회 클릭) 기본 -> (3회 클릭) 배경 검정 글자 하양 -> ...
+        // style 이용
+        // style 이용 어려우면 다른 방법 고민해서 해봐도 좋음
+        // reverse.addEventListener('click', function(){
+            // console.log(reverse);
+            // console.log(this);
+            // console.log(reverse.style.color);
+            // console.log(reverse.style.backgroundColor);
+            // if(this.style.backgroundColor != 'black'){
+            //     this.style.backgroundColor = 'black';
+            //     this.style.color = 'white';
+            // } else{
+            //     this.style.backgroundColor = null;
+            //     this.style.color = null;
+            // }
+        // });
+        reverse.addEventListener('click', (e) => {
+            console.log(e); // 이벤트 객체 e (변수 명 상관x)
+            console.log(e.target);    
+            if(e.target.style.backgroundColor != 'black'){
+                e.target.style.backgroundColor = 'black';
+                e.target.style,color = 'white';
+            } else{
+                e.target.style.backgroundColor = null;
+                e.target.style.color = null;
+            }
+        });     
+    </script>
+
+    <h5>동적으로 글자 수 세기</h5>
+    <span id="counter">0</span>/150<br/>
+    <textarea cols="70" rows="5" id="textTest" maxlength="150"></textarea>
+    <script>
+        // keydown(키를 누르는 순간), keyup(키에서 손을 떼는 순간),keypress(keydown 직후: deprecated)
+        const textTest = document.getElementById('textTest');
+        // textTest.addEventListener('keydown', (e) => {
+        //     console.log("@@@ keydown");
+        //     console.log(e.key);
+        //     console.log(e.target.value)
+        // })
+        // textTest.addEventListener('keyup', (e) => {
+        //     console.log("=== keyup");
+        //     console.log(e.key);
+        //     console.log(e.target.value)
+        // })
+        // input 값이 변경될 때
+        textTest.addEventListener('input', (e) =>{ //this사용하면 에러남 화살표함수라서
+            // console.log("*** input")
+            // console.log(e.target.value)
+            //1. textarea의 값 가져오기
+            let input = e.target.value;
+            //2. 값 길이
+            const inputlength = input.length;
+
+            const counter = document.getElementById('counter');
+
+            counter.innerHTML = inputlength;
+           
+            //3. 길이가 150이 넘나 확인
+            if(inputlength > 150){
+                counter.style.color = 'red';
+                input = input.substring(0, 150);
+                e.target.value = input;
+
+            } else{
+                counter.style.color = 'black';
+            }
+            //4. 넘으면 빨간색, 안 넘으면 까만색 -> span에 값 집어넣기
+        })
+    </script>
+
+    <h2>기본 이벤트 제거1</h2>
+    <form>
+        이름 : <input type="text" name="name" id="name"/><br/>
+        아이디 : <input type="text" name="userId" id="userId"><br/>
+        비밀번호 : <input type="password" name="passwordConfilm" id="userPwd"><br/>
+        비밀번호 확인 : <input type="password" name="passwordConfilm" id="passwordConfilm"><br/>
+        <input type="submit" value="제출" onclick="return delEvent1();"/>
+    </form>
+    <script>
+        const delEvent1 = () => {
+            //변수 name, userId, password, password2에 각각의 사용자가 입력한 값 저장하기
+            const name = document.getElementById('name').value;
+            const userId = document.getElementById('userId').value;
+            const password = document.getElementById('userPwd').value;
+            const password2 = document.getElementById('passwordConfilm').value;
+
+            if(password == password2){
+                alert('비밀번호가 일치합니다.');
+            } else{
+                alert('비밀번호가 다릅니다.');
+                return false;
+            }
+        }
+    </script>
+    <h2>기본 이벤트 제거2</h2>
+    <form onsubmit=" return delEvent2();">
+        이름 : <input type="text" name="name" id="name2"/><br/>
+        아이디 : <input type="text" name="userId" id="userId2"><br/>
+        비밀번호 : <input type="password" name="passwordConfilm" id="userPwd2"><br/>
+        비밀번호 확인 : <input type="password" name="passwordConfilm" id="passwordConfilm2"><br/>
+        <input type="submit" value="제출"/>
+    </form>
+    <script>
+        const delEvent2 = () => {
+            //변수 name, userId, password, password2에 각각의 사용자가 입력한 값 저장하기
+            const name = document.getElementById('name2').value;
+            const userId = document.getElementById('userId2').value;
+            const password = document.getElementById('userPwd2').value;
+            const password2 = document.getElementById('passwordConfilm2').value;
+
+            if(password == password2){
+                alert('비밀번호가 일치합니다.');
+            } else{
+                alert('비밀번호가 다릅니다.');
+                return false;
+            }
+        }
+    </script>
+     <h2>기본 이벤트 제거3</h2>
+    <form>
+        이름 : <input type="text" name="name" id="name3"/><br/>
+        아이디 : <input type="text" name="userId" id="userId3"><br/>
+        비밀번호 : <input type="password" name="passwordConfilm" id="userPwd3"><br/>
+        비밀번호 확인 : <input type="password" name="passwordConfilm" id="passwordConfilm3"><br/>
+        <input type="submit" value="제출" onclick="delEvent3(event);"/> // 인라인 방식에서 이벤트객체에 접근하고싶을때 무조건 ()안에event사용
+    </form>
+    <script>
+        const delEvent3 = (e) => { //여기에는 뭐라고쓰던 상관없음(매개변수만 받으면됨)
+            //변수 name, userId, password, password2에 각각의 사용자가 입력한 값 저장하기
+            const name = document.getElementById('name3').value;
+            const userId = document.getElementById('userId3').value;
+            const password = document.getElementById('userPwd3').value;
+            const password2 = document.getElementById('passwordConfilm3').value;
+
+            if(password == password2){
+                alert('비밀번호가 일치합니다.');
+            } else{
+                alert('비밀번호가 다릅니다.');
+                e.preventDefault(); 
+            }
+        }
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>.area{border: 1px solid black; min-height: 100px;}</style>
+</head>        
+<body>
+    <h1>DOM(Document Object Model)</h1>
+    <h2>Node객체</h2>
+    <h3>텍스트 노드가 있는 노드</h3>
+    <button onclick="textNode();">실행확인</button>
+    <div id="textNodeDiv" class="area"></div>
+    <script>
+        const textNode = () => {
+            // goal: div에 <h3>안녕</h3>을 추가하기 
+            // 1.요소 노드 생성
+            const title = document.createElement('h3'); //<h3></h3>
+            // 2.텍스트 노드 생성
+            const textNode = document.createTextNode('안녕'); // 안녕
+            // 3.요소 노드에 텍스트 노드 결합
+            title.align = 'center'; // 원한다면 속성 설정 가능
+            title.style.color = 'green';
+            title.append(textNode); //인자 개수 여러개
+            // title.appendChild(); // 인자 개수 1개만
+            // <h3>안녕</h3>
+            // 4.body 객체(->div)에 요소 노드 결합
+            document.getElementById('textNodeDiv').append(title);
+        }
+    </script>
+
+    <h3>텍스트 노드가 없는 노드</h3>
+    <button onclick="noTextNode();">실행확인</button>
+    <div id="noTextNodeDiv" class="area"></div>
+    <script>
+        const noTextNode = () => {
+            // goal: div에 이미지를 추가하기
+            // 1.요소 노드 생성           
+            const imgTest = document.createElement('img'); // <img/>
+            // 필수로 속성 지정
+            imgTest.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo3hQLPZ2033PzIHqJ3R-6iK5RPRWbIpigXXGcEhtN8VoBYRljsgfp96s&s=10'
+            imgTest.width= '150';
+            imgTest.height= '150';
+            imgTest.todayIs15 = '123';
+            imgTest.setAttribute('tomorrowIs16', '987');
+            // 2.body 객체(->div)에 요소 노드 결합
+            document.getElementById('noTextNodeDiv').append(imgTest);
+             
+        }
+    </script>
+
+    <h2>노드 삭제</h2>
+    <button onclick="deleteNode()">실행확인</button>
+    <div id="delDiv" class="area"></div>
+    <script>
+        // const deleteNode = () => {
+        //     document.getElementById('delDiv').remove;
+        // }
+        const deleteNode = () => document.getElementById('delDiv').remove;
+            
+        
+    </script>
+</body>
+</html>

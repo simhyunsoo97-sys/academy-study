@@ -1,0 +1,126 @@
+
+Table MEMBER이(가) 생성되었습니다.
+
+
+명령의 12 행에서 시작하는 중 오류 발생 -
+insert into member
+values('user01', 'pass01', '홍길동', 'M', 'hong_gd@kh.or.kr', 010-1234-1234', '경기도 남양주시 지금동',
+        20, sysdate);
+
+insert into member
+values('user02', 'pass02', '김유신', 'M', 'kim_ys@kh.or.kr', 010-1234-1234', '경기도 시흥시 정왕동',
+        19, sysdate)
+오류 발생 명령행: 13 열: 79
+오류 보고 -
+SQL 오류: ORA-00917: 누락된 콤마
+
+https://docs.oracle.com/error-help/db/ora-00917/00917. 00000 -  "missing comma"
+*Cause:    A required comma has been omitted from a list of
+           columns or values in an INSERT statement or a list of the form
+           ((C,D),(E,F), ...).
+*Action:   Correct the syntax.
+
+More Details :
+https://docs.oracle.com/error-help/db/ora-00917/
+
+명령의 12 행에서 시작하는 중 오류 발생 -
+insert into member
+values('user01', 'pass01', '홍길동', 'M', 'hong_gd@kh.or.kr', 010-1234-1234', '경기도 남양주시 지금동',
+        20, sysdate);
+
+insert into member
+values('user02', 'pass02', '김유신', 'M', 'kim_ys@kh.or.kr', 010-1234-1234', '경기도 시흥시 정왕동',
+        19, sysdate)
+오류 발생 명령행: 13 열: 79
+오류 보고 -
+SQL 오류: ORA-00917: 누락된 콤마
+
+https://docs.oracle.com/error-help/db/ora-00917/00917. 00000 -  "missing comma"
+*Cause:    A required comma has been omitted from a list of
+           columns or values in an INSERT statement or a list of the form
+           ((C,D),(E,F), ...).
+*Action:   Correct the syntax.
+
+More Details :
+https://docs.oracle.com/error-help/db/ora-00917/
+
+명령의 12 행에서 시작하는 중 오류 발생 -
+insert into member
+values('user01', 'pass01', '홍길동', 'M', 'hong_gd@kh.or.kr', 010-1234-1234', '경기도 남양주시 지금동',
+        20, sysdate);
+
+insert into member
+values('user02', 'pass02', '김유신', 'M', 'kim_ys@kh.or.kr', 010-1234-1234', '경기도 시흥시 정왕동',
+        19, sysdate)
+오류 발생 명령행: 13 열: 79
+오류 보고 -
+SQL 오류: ORA-00917: 누락된 콤마
+
+https://docs.oracle.com/error-help/db/ora-00917/00917. 00000 -  "missing comma"
+*Cause:    A required comma has been omitted from a list of
+           columns or values in an INSERT statement or a list of the form
+           ((C,D),(E,F), ...).
+*Action:   Correct the syntax.
+
+More Details :
+https://docs.oracle.com/error-help/db/ora-00917/
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+명령의 24 행에서 시작하는 중 오류 발생 -
+insert into member
+values('user04', 'pass04', '김영희', 'F', kim_yh@kh.or.kr', '010-1234-1234', '서울시 관악구 봉천동',
+        27, sysdate);
+
+insert into member
+values('user05', 'pass05', '박철수', 'M', park_sc@kh.or.kr', 010-1234-1234', '경기도 수원시 연무동',
+        20, sysdate);
+
+insert into member
+values('user06', 'pass06', '유미영', 'F', 'yoo_my@kh.or.kr', 010-1234-1234', '서울시 종로구 관철동',
+        20, sysdate)
+오류 발생 명령행: 25 열: 53
+오류 보고 -
+SQL 오류: ORA-02084: 데이터베이스명에 요소가 누락되었습니다
+
+https://docs.oracle.com/error-help/db/ora-02084/02084. 00000 -  "database name is missing a component"
+*Cause:    supplied database name cannot contain a leading '.',
+           trailing '.' or '@', or two '.' or '@' in a row.
+
+More Details :
+https://docs.oracle.com/error-help/db/ora-02084/
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+커밋 완료.
+이름           널?       유형            
+------------ -------- ------------- 
+MEMBER_ID    NOT NULL VARCHAR2(30)  
+MEMEBER_PWD  NOT NULL VARCHAR2(30)  
+MEMEBER_NAME NOT NULL VARCHAR2(30)  
+GENDER                CHAR(1)       
+EMAIL                 VARCHAR2(50)  
+PHONE                 VARCHAR2(30)  
+ADDRESS               VARCHAR2(100) 
+AGE                   NUMBER        
+ENROLL_DATE           DATE          
+
+Table MEMBER이(가) 변경되었습니다.
+
+
+Table MEMBER이(가) 변경되었습니다.
+
+커밋 완료.

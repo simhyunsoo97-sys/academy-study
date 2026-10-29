@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>기본문법</h1>
+    <h2>변수와 자료형</h2>
+    <h3>변수 선언</h3>
+    <p>
+        함수 내부에서 'var변수명;' 으로 선언하면 지역변수가 됨<br/>
+        함수 내부에서 '변수명;'으로 선언하거나 함수 밖에서 '변수명;' 혹은 'var 변수명;'으로 선언하면 전역 변수가 됨<br/>
+        전역 변수와 지역 변수가 동일한 이름인 경우 함수 내부에서 변수 명을 호출하면 지역 변수가 우선권을 가짐<br/>
+        전역 변수 사용시 'window. 변수 명' 혹은 'this. 변수 명'으로 표형하여 지역 변수와 구분<br/>
+        전역 변수는 해당 window 내에서 어디든 사용할 수 있으면, 지역 변수는 해당 함수 내에서만 사용가능
+    </p>
+    <script>
+        str = '전역 변수';
+        var str2 = 'var전역 변수';
+
+        window.onload = () => { // 페이지가 로드 되면 자동으로 실행하는 함수(한 페이지에서 하나의 window.onload만 사용가능)
+            var str1 = '지역 변수1';
+            var str3 = '지역 변수2';
+
+            console.log('str1 : ' + str1);                      // 지역 변수1
+            console.log('this.str1 : ' + this.str1);            // 전역 변수
+            console.log('window.str1 : ' + window.str1);       // 전역 변수
+
+            console.log('str2 : ' + str2);                      // var 전역 변수
+            console.log('this.str2 : ' + this.str2);            // var 전역 변수
+            console.log('window.str2 : ' + window.str2);       // var 전역 변수
+
+            console.log('str3 : ' + str3);                      // 지역 변수2
+            console.log('this.str3 : ' + this.str3);            // undefined
+            console.log('window.str3 : ' + window.str3);       // undefined
+
+            what = '난 뭘까?';
+            showWhat();
+        }
+        function showWhat(){
+            console.log(what);              //난 뭘까?
+            console.log(this.what);         //난 뭘까?
+            console.log(window.what);       //난 뭘까?
+        }
+    </script>
+
+    <h3>자료형</h3>
+    <p>
+        자바스크립트에서는 자료형 별로 변수 타입이 지정되지 않고 리터럴에 의해 자료형 결정
+        선어 시 자료형을 지정하지 않기 때문에 변수 명만으로 데이터의 자료형을 확인할 수가 없으므로
+        값의 자료형을 확인하기 위해 typeof() 연산자 사용
+    </p>
+    <button onclick="typeTest();">자료형 테스트</button>
+    <script>
+        const typeTest = () => {
+            var name = '홍길동'; // 문자열
+            var age = 20;       // 숫자
+            var check = true;   // 논리 값
+            var hobby = ['축구', '농구', '야구']; // 배열
+            var user = {name: '강건강', age: 30, id: 'user01'}; //객체
+            var func = function(num1, num2){ // 함수
+                var sum = num1 + num2;
+                alert(sum);
+            };
+            var temp;
+
+            console.log(name);
+            console.log(typeof name);
+            console.log(age);
+            console.log(typeof (age));
+            console.log(check);
+            console.log(typeof check);
+            console.log(hobby);
+            console.log(typeof (hobby));
+            console.log(user);
+            console.log(typeof user);
+            console.log(func);
+            console.log(typeof (func));
+            console.log(temp);
+            console.log(typeof temp);
+        }
+    </script>
+
+    <h3>var와 let과 const</h3>
+    <p>
+        기존 ESS버전에서는 변수를 var자료형으로 받아왔지만 데이터의 모호함이라는 문제를 개선하기 위해
+        최근에는 ES6버전의 let과 const자료형을 많이 쓰는 추세 -> 가독성 및 유지보수 증가<br/>
+        - let : 일반적인 변수 선언(덮어쓰기 가능, 기존 var와 같음)<br/>
+        - const : 상수 변수 선언(덮어쓰기 불가능)
+    </p>
+    <button onclick="es6_1();">ES6자료형1</button>
+    <button onclick="es6_2();">ES6자료형2</button>
+    <button onclick="es6_3();">ES6자료형3</button>
+    <script>
+        // ES6로 들어와서 크게 바뀐 것 중 또 다른 하나는 화살표 함수 = 익명함수
+        // function이라는 키워드 없이 함수 생성 가능 () => {}
+        
+        const es6_1 = () => { 
+            var exVar = '강건강';
+            console.log('변경 전 exVar : ' + exVar);
+            exVar = 123;
+            console.log('변경 후 exVar : ' + exVar);
+
+            let exLet = 234;
+            console.log('변경 전 exLet : ' + exLet);
+            exLet = '남나눔';
+            console.log('변경 후 exLet : ' + exLet);
+
+            const exConst = 345;
+            console.log('변경 전 exConst ' + exConst);
+            exConst = '도대담'; // Assignment to constant variable (상수변수)
+            console.log('변경 후 exConst ' + exConst);
+        }
+        const es6_2 = () => {
+            // hoisting : 변수 선언을 상단부로 이동시키는것
+            // var자료형은 hoisting 발생
+            var vTest = 'hoisting';
+            console.log(vTest);
+            // var vTest;
+            // console.log(vTest);
+            // vTest = 'hoisting';
+            // console.log(vTets);
+
+            // let, const 자료형은 hoisting차단
+            console.log(lTest); // Cannot access 'lTest' before initialization
+            let lTest = 'hoisting';
+            console.log(lTest);
+        }
+        const es6_3 = () => {
+            // scpe차이
+            // var자료형은 function scope : 같은 function이면 사용 가능
+            if(true){
+                var vScope = 10;
+            }
+            console.log(vScope);
+
+            // let, const자료형은 block scope : 같은 block내에서만 사용 가능
+            if(true){
+                const cScope = 20;
+            }
+            console.log(cScope); // cScope is not defined
+        }
+    </script>
+
+    <h2>데이터와 형변화</h2>
+    <h3>문자열과 숫자의 +연산</h3>
+    <button onclick="testPlus();">문자열과 숫자의 + 연산</button>
+    <script>
+        // 화살표 함수로 testPlus 함수 생성 
+        const testPlus = () => {
+            const test1 = 7 + 7;
+            const test2 = 7 + '7';
+            const test3 = '7' + 7;
+            const test4 = '7' + '7';
+            const test5 = 7 + 7 + '7';
+            const test6 = 7 + '7' + 7;
+            const test7 = '7' + 7 + 7;
+            const test8 = '7' + (7 + 7); // 714
+
+            console.log(test1);  // 14
+            console.log(test2);  // 77
+            console.log(test3);  // 77
+            console.log(test4);  // 77
+            console.log(test5);  // 147
+            console.log(test6);  // 777
+            console.log(test7);  // 777
+            console.log(test8);  // 714
+        }
+    </script>
+
+    <h3>강제 형변환</h3>
+    <p>Number(), parseInt(), parseFloat()함수를 이용하여 강제 형변화</p>
+    <button onclick="castingTest();">casting 테스트</button>
+    <script>
+        const castingTest = () => {
+            const num1 = 2;
+            const num2 = '3';
+            const num3 = '0.1';
+
+            console.log(num1 + num2);
+            console.log(num1 + Number(num2));
+            console.log(num1 + parseInt(num2));
+            console.log(num1 + parseFloat(num2));
+
+            console.log(num1 + num3);
+            console.log(num1 + Number(num3));
+            console.log(num1 + parseInt(num3));
+            console.log(num1 + parseFloat(num3));
+        }
+    </script>
+
+    <h2>연산자</h2>
+    <h3>===연산자와 !== 연산자</h3>
+    <p>값과 자료형 둘 다 일치하는지/일치하지 않는지 확인할 때 사용</p>
+    <button onclick="opTest();">확인하기</button>
+    <script>
+        const opTest = () => {
+            const check1 = 1;
+            const check2 = '1';
+
+            console.log(check1 == 1);
+            console.log(check1 == '1');
+            console.log(check2 == 1);
+            console.log(check2 == '1');
+
+            console.log(check1 === 1);
+            console.log(check1 === '1');
+            console.log(check2 === 1);
+            console.log(check2 === '1');
+        }
+    </script>
+
+    <h2>조건문과 반복문</h2>
+    <h3>조건문</h3>
+    <h4>if</h4>
+    <button onclick="ifTest();">if 버튼</button>
+    <script>
+        const ifTest = () => {
+            const gender = prompt('당신의  성별은 무엇입니까?', '남자/여자');
+            if(gender == '남자'){
+                alert('XY입니다');
+            } else if(gender == '여자'){
+                alert('XX입니다')      
+            } else{
+                alert('잘못 입력하셨습니다')
+            }
+        }
+    </script>
+
+    <h4>switch</h4>
+    <button onclick="switchTest();">swihct버튼</button>
+    <script>
+        const switchTest = () => {
+            const month = Number(prompt('현재는 몇 월입니까?'));
+            let day;
+            switch(month){
+                case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+                    day = 31;
+                    break;
+                case 4: case 6: case 9: case 11:
+                    day = 30;
+                    break;
+                case 2:
+                    day = 28;
+                    break;
+                default:
+                    day('잘못 입력');
+            }
+            alert(month + '월은 ' + day + '일까지입니다.');
+        }
+    </script>
+    <h3>반복문</h3>
+    <h4>for</h4>
+    <button onclick="forTest();">for버튼</button>
+    <script>
+        const forTest = () => {
+            let result = '';
+            for(let i = 1; i <= 10; i++){
+                result += i + '';
+            }
+            alert(result);
+        }
+    </script>
+    <h4>while</h4>
+    <button onclick="whileTest();">while버튼</button>
+    <script>
+        const whileTest = () => {
+            let result = '';
+            let i = 1;
+            while(i <= 10){
+                result += i + '';
+                i++
+            }
+            alert(result);
+        }
+    </script>
+
+    <h4>for in</h4>
+    <button onclick="forinTest1();">for in버튼 1</button>
+    <button onclick="forinTest2();">for in버튼 1</button>
+    <script>
+        const forinTest1 = () => {
+            const array = [11, 22, 33, 44, 55]; // 배열
+            for(const i in array){
+                console.log(i);// 배열의 index
+                console.log(array[i]);
+            }
+        }
+        const forinTest2 = () => {
+            const object = {userId: 'user01', userPwd: 'pass01'}; // 객체
+            for(const i in object){
+                console.log(i);// 객체의 키
+                console.log(object[i]);
+            }
+        }
+    </script>
+
+    <h4>for of</h4>
+    <button onclick="forofTest1();">for of버튼 1</button>
+    <button onclick="forofTest2();">for of버튼 1</button>
+    <script>
+        const forofTest1 = () => {
+            const array = [99, 88, 77, 66];
+            for(const i of array){
+                console.log(i); // 배열의 값 자체
+            }
+
+        }
+        const forofTest2 = () => {
+            const object = {userName: 'James', gender: 'M'};
+            for(const i of object){
+                console.log(i); //object is not iterable
+            }
+
+        }
+    </script>
+
+</body>
+</html>

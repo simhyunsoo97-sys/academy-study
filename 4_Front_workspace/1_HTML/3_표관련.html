@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            thead{background-color: salmon;}
+            tbody{background-color:aqua}
+            tfoot{background-color: aquamarine;}
+        </style>
+    </head>
+    <body>
+        <h1>기본적인 표 만들기</h1>
+        <table border = "1">
+            <caption>웹 브라우저의 종류</caption>
+            <thead>
+                <tr>
+                    <td>브라우저명</td>
+                    <td>제조사</td>
+                    <td>홈페이지</td>                
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>익스플로러</td>
+                    <td>MS</td>
+                    <td>https://www.microsoft.com</td>
+                </tr>
+                <tr>
+                    <td>크롬</td>
+                    <td>google</td>
+                    <td>https://www.apple.com</td>               
+                </tr>
+                <tr>
+                    <td>사파리</td>
+                    <td>애플</td>
+                    <td>ttps://www.apple.com</td>
+                </tr>
+                <tr>
+                    <td>파이어폭스</td>
+                    <td>Mozila</td>
+                    <td>ttps://www.mozilla.org</td>
+                </tr>                   
+            </tbody>
+        </table>
+
+        <h1>표의 행과 열 합치기</h1>
+        <table border="1">
+            <tr>
+                <td rowspan="2" colspan="2" width="130px" height="150px">사진</td>
+                <td width="80px">이름</td> 
+                <td width="200px"></td>                          
+            </tr>
+            <tr>
+                <td>연락처</td>
+                <td></td>              
+            </tr>
+            <tr>
+                <td width="70px" height="50px">주소</td>
+                <td colspan="3"></td>
+            </tr>
+            <tr>
+                <td height="100px">자기소개</td>
+                <td colspan="3"></td>
+            </tr>
+
+        </table>
+        <h1>테이블 태그의 구조</h1>
+        <table border="1">
+            <thead>
+                <tr>
+                <th>이름</th>
+                <th>나이</th>
+                <th>주소</th>
+                </tr>
+            </thead>     
+            <tbody>
+                 <tr>                
+                    <td>강건강</td>
+                    <td>20</td>
+                    <td>서울시 강남구 역삼동</td>
+                </tr>
+                 <tr>
+                    <td>남나눔</td>
+                    <td>17</td>
+                    <td>서울시 노원구 하계동</td>
+                </tr>
+                <tr>
+                    <td>도대담</td>
+                    <td>34</td>
+                    <td>서울시 중구 남대문로</td>
+                </tr>
+            </tbody>                    
+           <tfoot>
+                <tr>
+                    <td colspan="2">총인원</td>
+                    <td>3명</td>
+                </tr>
+           </tfoot>
+           
+
+        </table>
+
+
+
+    </body>
+</html>

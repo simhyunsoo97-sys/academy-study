@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>함수(Function)</h1>
+    <h2>함수 선언</h2>
+    <h3>선언적 함수</h3>
+    <p>함수 명을 작성하여 사용하는 방법</p>
+    <button onclick="declare();">실행확인</button>
+    <script>
+        //declare();
+        function declare(){
+            alert('선언적 함수 실행');
+        }
+        //declare();
+    </script>
+
+    <h3>익명 함수</h3>
+    <p>함수 명을 작성하지 않고 변수에 대입하는 방법</p>
+    <pre>  - (ES5) 함수 명 = function(){소스코드 작성}</pre>
+    <pre>  - (ES6) 함수 명 = () => {소스코드 작성}</pre>
+    <button onclick="anonymity1();">실행확인1</button>
+    <button onclick="anonymity2();">실행확인2</button>
+    <script>
+        //anonymity1();
+        var anonymity1 = function(){
+            alert('익명함수 실행1');
+        }
+        const anonymity2 = () => {
+            alert('익명함수 실행2');
+        }
+    </script>
+
+    <h2>함수 전달 인자와 매개변수</h2>
+    <h3>매개인자로 전달하기</h3>
+    <button id="checkArgument">실행확인</button>
+    <script>
+        // id가 checkArgument인 요소에 클릭 이벤트 연결하기 (화살표 함수 이용)
+        document.getElementById('checkArgument').onclick = () => {
+            test1('안녕하세요');
+            test1('반갑습니다', '건강하세요'); //인자가 아무리 많아도 받을수 있는만큼만 받는다 
+            test1();
+
+            test2('잘 먹겠습니다');
+            test2('잘 먹었습니다', '안녕히 주무세요');
+            test2();
+
+        }
+        function test1(value){  
+            console.log(value);
+            console.log(arguments);
+        }
+        const test2 = (value, ...theothers) => {
+            console.log(value);
+            //console.log(arguments); //arguments는 function에서만 사용가능
+            console.log(theothers);
+        }
+    </script>
+
+    <h3>매개인자로 스스로를 전달하기</h3>
+    <p>this를 통해 전달 가능</p>
+    <button onclick="sendOther('JavaScript');">JavaScript</button>
+    <button onclick="sendOther('React');">React</button>
+    <script>
+        const sendOther = (subject) => {
+            // JavaScript버튼을 누르면  "오늘 배울 내용은 JavaScript입니다." alert창이,
+            // React버튼을 누르면 "오늘 배울 내용은 React입니다." alert창이 뜨도록 하기
+            // ==> script뿐만 아니라 위의 버튼 태그도 내용을 바꿔야(추가해야) 구현가능
+            alert('오늘 배울 내용은 ' + subject  + '입니다.');
+        }
+    </script>
+
+    <button onclick="sendMe(this);">JDBC</button>  //this 내가 머물고있는 태그 자체를 뜻함
+    <button onclick="sendMe(this);">HTML</button>
+    <script>
+        const sendMe = (obj) => {
+            console.log(obj);
+            alert('오늘 배울 내용은 ' + obj.innerText + '입니다.');
+        }
+    </script>
+
+    <h3>함수와 리턴처리</h3>
+    <button onclick="returnValue();">실행확인</button>
+    <script>
+       // const returnValue = () => {
+        //     console.log(returnFunction());
+        // }
+        // const returnFunction = () => {
+        //     return Math.floor(Math.random() * 100) + 1
+        // }
+        const returnValue = () => console.log(returnFunction());
+        const returnFunction = () => Math.floor(Math.random() * 100) + 1
+    </script>
+
+    <h2>내장함수</h2>
+    <h3>infinity</h3>
+    <p>
+        대부분의 프로그래밍 언어는 0으로 숫자를 나누면 자동으로 오류가 발생하면서 프로그램이 종료되지만,<br/>
+        자바스크립트는 0으로 숫자를 나누면 infinity라는 값이 들어감<br/>
+        자바스크립트가 표현할 수 없는 숫자는 NaN(Not a Number)로 표시
+    </p>
+    <button onclick="aboutNumFunc();">실행확인</button>
+    <script>
+        const aboutNumFunc = () => {
+            const num1 = 10 / 0; 
+            const num2 = 10 / 'a';
+            const num3 = -10 / 0;
+            console.log(num1, typeof num1); 
+            console.log(num2, typeof num2);
+            console.log(num3, typeof num3);
+
+            console.log('isFinte(num1) : ' + isFinite(num1));
+            console.log('isFinte(num2) : ' + isFinite(num2));
+            console.log('isFinte(num3) : ' + isFinite(num3));
+            console.log('num1 == Infinity ' + (num1 == Infinity));
+            console.log('num1 == -Infinity ' + (num1 == -Infinity));
+            console.log('isNaN(num2) ' + isNaN(num2));
+            console.log('num3 == Infinity ' + (num3 == Infinity));
+            console.log('num3 == -Infinity ' + (num3 == -Infinity));
+
+
+        }
+    </script>
+</body>
+</html>

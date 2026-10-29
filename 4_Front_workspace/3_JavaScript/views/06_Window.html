@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .area{border: 1px solid black; width: 300px; height: 100px; font-size: 40px; color: red; }
+    </style>
+</head>
+<body>
+    <h1>window객체</h1>
+    <p>
+        window객체는 자바스크립트의 최상위 객체이며 BOM과 DOM으로 나뉨<br/>
+        BOM(Browser Object Model) : location, navigator, history, screen<br/>
+        DOM(Document Object Model) : document
+    </p>
+
+    <h2>window객체</h2>
+    <p>브라우저 창에 대한 설정을 하는 객체</p>
+    <button id="test1">실행1</button>
+    <button id="test2">실행2</button>
+    <script>
+        //id가 test1인 요소에 클릭 이벤트 연결(화살표 함수 사용)
+        document.getElementById('test1').onclick = () => {
+            console.log(window);
+            console.log(this);
+
+            //window.open();// 새로운 탭 생성
+            //window.open('02_BasicGrammar.html'); // 주소가 있는 탭이 열림
+            //window.open('https://www.naver.com');
+
+            window.open('https://www.naver.com', '네이버', 'width=500, height=300');
+        }
+        document.getElementById('test2').onclick = function(){
+            console.log(window);
+            console.log(this);
+
+            //const popup = window.open('', '_self');
+            const popup = window.open('','', 'width=500, height=300');
+            popup.document.write('<html><body><h2>POP UP!!@!!<h2></body></html>')
+        }
+    </script>
+
+    <h3>window객체의 timer메소드</h3>
+    <h4>setTimeout()</h4>
+    <button onclick="setTimeout();">실행확인</button>
+    <script>
+        const setTimeout = () => {
+            const popup = window.open('','', 'width=500, height=300');
+            popup.alert('3초 후에 이 페이지는 종료됩니다.');
+            //window.setTimeout(() => { popup.close();}, 3000);  // 3초후에 닫힘
+            window.setTimeout(() => popup.closed(), 3000);
+           
+        }
+    </script>
+
+    <h4>setInterval()</h4>
+    <button onclick="steIntervalTest();">실행확인</button>
+    <div id="intervalDiv" class="area"></div>
+    <script>
+        const steIntervalTest = () => {
+            const area = document.getElementById('intervalDiv')// id가 intervalDiv인 요소를 변수area에 저장하기
+
+            setInterval(() => {const date = new Date();
+            //console.log(date);
+            area.innerHTML =date.getHours() + " : " + date.getMinutes() + " : " + date.getSeconds();}, 1000); // 몇초마다 무슨일을 할까
+        }
+    </script>
+    <h4>clearInterval()</h4>
+    <button onclick="count3();">실행확인</button>
+    <div id="countDiv" class="area"></div>
+    <script>
+        const count3 = () => {
+            const area = document.getElementById('countDiv');
+            let count = 3;
+            
+            // id가 countDiv인 곳에 3초 카운트 다운할 수 있게 만들기
+            // ex.  countdown : 3
+            //      countdown : 2
+            //      countdown : 1
+            //      종료!
+            const intervalId = setInterval(() => {
+                area.innerHTML = 'countdown : ' + count--;
+                if(count < 0){
+                    clearInterval(intervalId);
+                    area.innerHTML = '종료!';
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

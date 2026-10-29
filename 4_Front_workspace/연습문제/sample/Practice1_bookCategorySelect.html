@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pratice1</title>
+</head>
+<body>
+    <h3>Practice1</h3>
+    <fieldset>
+        <legend>취미</legend>
+
+        <input type="checkbox" id="all" onchange="selectAll();">
+        <label for="all">전체선택</label>
+
+        <input type="checkbox" class="category" value="종합" onchange="checkAll();">
+        <label>종합</label>
+
+        <input type="checkbox" class="category" value="소설" onchange="checkAll();">
+        <label>소설</label>
+
+        <input type="checkbox" class="category" value="시/에세이" onchange="checkAll();">
+        <label>시/에세이</label>
+
+        <input type="checkbox" class="category" value="경제/경영" onchange="checkAll();">
+        <label>경제/경영</label>
+
+        <input type="checkbox" class="category" value="자기계발" onchange="checkAll();">
+        <label>자기계발</label>
+
+        <input type="checkbox" class="category" value="아동" onchange="checkAll();">
+        <label>아동</label>
+
+        <br>
+
+        <input type="checkbox" class="category" value="여행" onchange="checkAll();">
+        <label>여행</label>
+
+        <input type="checkbox" class="category" value="과학" onchange="checkAll();">
+        <label>과학</label>
+
+        <input type="checkbox" class="category" value="역사/문화" onchange="checkAll();">
+        <label>역사/문화</label>
+
+        <input type="checkbox" class="category" value="외국어" onchange="checkAll();">
+        <label>외국어</label>
+
+        <input type="checkbox" class="category" value="컴퓨터" onchange="checkAll();">
+        <label>컴퓨터</label>
+
+        <input type="checkbox" class="category" value="만화" onchange="checkAll();">
+        <label>만화</label>
+    </fieldset>
+    
+     <button onclick="printCategory();">카테고리 선택</button>
+     <div id="result" style="width: 480px; height: 100px; border: 1px solid red;"></div>
+      <script>
+        const selectAll = () => {
+            const all = document.getElementById("all");
+            const categories = document.getElementsByClassName("category");
+
+            for (let i = 0; i < categories.length; i++) {
+                categories[i].checked = all.checked;
+            }
+        };
+         const checkAll = () => {
+            const all = document.getElementById("all");
+            const categories = document.getElementsByClassName("category");
+
+            let count = 0;
+
+            for (let i = 0; i < categories.length; i++) {
+                if (categories[i].checked) {
+                    count++;
+                }
+            }
+
+            all.checked = count === categories.length;
+        };
+
+        const printCategory = () => {
+            const categories = document.getElementsByClassName("category");
+            const result = document.getElementById("result");
+
+            let text = "";
+
+            for (let i = 0; i < categories.length; i++) {
+                if (categories[i].checked) {
+                    text += categories[i].value + " ";
+                }
+            }
+
+            result.innerText = text;
+        };
+        </script>
+</body>
+</html>

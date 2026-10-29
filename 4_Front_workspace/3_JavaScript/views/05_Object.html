@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>객체</h1>
+    <h2>객체 선언 및 호출</h2>
+    <p>
+        중괄호{}를 이용하여 객체를 생성하고 속성에는 모든 자료형이 올 수 있음<br/>
+        객체는 키 값을 사용하여 속성 식별
+    </p>
+    <button onclick="basic();">실행확인</button>
+    <script>
+        const basic = () => { 
+            const product = {
+            pName:'Dry Mango',
+            manufacturing:2026,
+            ingredient:['mango', 'sugar'],
+            safty:true,
+            pName: 'Mango Jam'
+        }; // 객체, key:value
+        console.log(product);
+
+        console.log('객체명["속성명"]');
+        console.log(product['pName']);
+        console.log(product['manufacturing']);
+        console.log(product['ingredient']);
+        console.log(product['ingredient'][0]);
+        console.log(product['ingredient'][1]);
+        console.log(product['safty']);
+
+        console.log('객체명.속성명');
+        console.log(product.pName);
+        console.log(product.manufacturing);
+        console.log(product.ingredient);
+        console.log(product.ingredient[0]);
+        console.log(product.ingredient[1]);
+        console.log(product.safty);
+
+        //product = 'test'; //상수변수변수라 사용불가
+        product.safty = false;
+        console.log(product);
+    }
+    </script>
+    <h3>객체의 키 식별자 테스트</h3>
+    <p>
+        객체의 키는 모든 문자열 사용 가능<br/>
+        식별자로 사용할 수 없는 단어를 사용한 경우, 무조건 대괄호를 사용해야 객체의 요소에 접근할 수 있음
+    </p>
+    <button onclick="keyTest();">실행확인</button>
+    <script>
+        const keyTest = () => {
+            const objTest = {
+                win$ter: '겨울방학',
+                win_ter:'눈',
+                'win ter':'크리스마스'
+            }
+            console.log(objTest);
+
+            console.log(objTest.win$ter);
+            console.log(objTest.win_ter);
+            //console.log(objTest.win ter);
+            console.log(objTest['win ter']);
+        }
+    </script>
+
+    <h3>객체의 메소드 속성</h3>
+    <p>객체의 속성 중 함수 자료형인 속성을 메소드 라고 함</p>
+    <button onclick="objMethod();">실행확인</button>
+    <script>
+        const objMethod = () => {
+            const diet = {
+                type1:'러닝',
+                type2:'식단조절',
+                result: function(kg){
+                    const type1 = '폭식';
+                    const type2 = '누워있기';
+                    console.log(this.type1 + " + " + this.type2 + " = " + kg + "kg 감량!"); // this는 내 객체를 뜻함
+                    // function함수 내에서의 this는 현재 속한 객체를 뜻함
+                },
+                result2: (kg) => {
+                    const type1 = '웨이트';
+                    const type2 = '수영';
+                    //console.log(this.type1 + " + " + this.type2 + " = " + kg + 'kg 감량~~');
+                    // 화살표 함수 내에서의 this는 window객체를 뜻함, 화살표함수 안에서는 this를 자유롭게 못씀
+                    console.log(diet.type1 + " + " + diet.type2 + " = " + kg + 'kg 감량~~'); // 클로저(Closure)
+                }
+            }
+            diet.result(5);
+            diet.result2(10);
+        }
+    </script>
+
+    <h3>객체 속성 추가 및 제거</h3>
+    <p>처음 객체 생성 이후 속성을 추가하거나 제거하는 것을 '동적으로 속성을 추가/제거한다'라고 함</p>
+    <button onclick="addObjArg();">실행확인</button>
+    <script>
+        const addObjArg = () => {
+            const student = {}; // 빈 객체 === const sytudent = new Object();
+            console.log(student);
+
+            student.name = '강건강';
+            student.hobby = '운동';
+            student['strength'] = '3대 500';
+            student['dream'] = '크로스핏 선수';
+            student.toString = function(){
+                let str = '';
+                for(const key in this){
+                    if(key != 'toString'){
+                        str += key + ' : ' + this[key] + "\n";
+                    }
+                }
+                return str;
+            }
+            console.log(student);
+            console.log(student.toString());
+
+            delete(student.hobby);
+            console.log(student);
+        }
+    </script>
+
+    <h2>객체 배열</h2>
+    <button onclick="objArr();">실행확인</button>
+    <script>
+        const objArr = () => {
+            const student0 = {name: '차청춘', java: 90, oracle: 56, JDBC: 33, HTML5: 56, CSS3: 88, javascript: 80};
+            const student1 = {name: '남나눔', java: 23, oracle: 12, JDBC: 37, HTML5: 53, CSS3: 31, javascript: 70};
+            const student2 = {name: '박보배', java: 96, oracle: 56, JDBC: 36, HTML5: 54, CSS3: 34, javascript: 60};
+            const student3 = {name: '강건강', java: 65, oracle: 53, JDBC: 35, HTML5: 55, CSS3: 89, javascript: 50};
+            const student4 = {name: '송성실', java: 37, oracle: 63, JDBC: 34, HTML5: 58, CSS3: 99, javascript: 40};
+            const student5 = {name: '류라라', java: 45, oracle: 77, JDBC: 38, HTML5: 59, CSS3: 82, javascript: 30};
+            const student6 = {name: '윤예의', java: 64, oracle: 52, JDBC: 39, HTML5: 60, CSS3: 92, javascript: 20};
+            const student7 = {name: '도대담', java: 25, oracle: 41, JDBC: 40, HTML5: 61, CSS3: 97, javascript: 10};
+            const student8 = {name: '정재주', java: 64, oracle: 99, JDBC: 47, HTML5: 62, CSS3: 91, javascript: 78};
+            const student9 = {name: '차청춘', java: 83, oracle: 88, JDBC: 55, HTML5: 63, CSS3: 92, javascript: 77};
+
+            const students = []; // 객체 배열
+            students.push(student0);
+            students.push(student1);
+            students.push(student2);
+            students.push(student3);
+            students.push(student4);
+            students.push(student5);
+            students.push(student6);
+            students.push(student7);
+            students.push(student8);
+            students.push(student9);
+            console.log(students);
+
+            for(const obj of students){
+                obj.getSum = function(){
+                    let sum = 0;
+                    for(const key in this){
+                        if(key != 'name' && key != 'grySum' && key != 'getAvg'){
+                            sum += this[key];
+                        }
+                    }
+                    return sum;
+                }
+
+                obj.getAvg = function(){
+                    return this.getSum()/6;
+                }
+            }
+            console.log(students);
+
+            for(const obj of students){
+                console.log('이름 : ' + obj.name + '\n총점 : ' + obj.getSum() + "\n평균 : " + obj.getAvg());
+            }
+        }
+    </script>  
+</body>
+</html>

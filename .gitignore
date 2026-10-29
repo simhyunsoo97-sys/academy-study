@@ -1,0 +1,24 @@
+**/.metadata/
+**/node_modules/
+**/bin/
+**/target/
+**/build/
+**/dist/
+**/*.log
+**/.classpath
+**/.project
+**/.settings/
+
+# 개발 프로그램 설치 파일 제외
+dev/**/*.zip
+dev/**/*.msi
+dev/**/*.exe
+dev/**/*.cab
+dev/**/*.dylib
+**/*.class
+
+# 개발 도구 설치 폴더 제외
+dev/eclipse/
+dev/apache-tomcat-10.1.61/
+dev/OracleXE184_Win64/
+dev/sqldeveloper/

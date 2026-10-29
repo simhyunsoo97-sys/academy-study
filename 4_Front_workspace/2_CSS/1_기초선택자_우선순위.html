@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{width: 200px; height: 100px; background-color: hotpink;}
+
+        .test{background-color: magenta; width: 200px; height: 100px;}
+
+        p{background-color: plum;}
+
+        #test1{background-color: powderblue;}
+        #test2{background-color: silver;}
+        .test{background-color: black;}
+        p{background-color: white;}
+
+        div{background-color: gray !important;}
+    </style>
+</head>
+<body>
+    <h2>기초 선택자 우선순위</h2>
+    <p>
+        기본적으로 CSS속성은 위에서부터 아래로 순차 적용되지만,
+        같은 태그에 여러 개의 CSS속성이 설정된 경우에는 우선 순위에 따라 스타일이 적용됨
+    </p>
+    <pre>!important> 인라인 스타일 > 아이디 ? 클래스 ? 태그 </pre>
+    <div id="test1" class="test" style="background-color: green;">우선순위 테스트</div>
+    <p id="test2" class="test">우선순위 테스트</p>
+</body>
+</html>

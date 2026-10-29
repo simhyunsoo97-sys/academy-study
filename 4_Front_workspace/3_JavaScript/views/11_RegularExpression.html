@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>정규표현식</h1> // 지금 입력한값이 형태에 맞는지 검사하는것
+    <h2>정규표현식 객체 생성</h2>
+    <button onclick="regExp();">확인하기</button>
+    <script>
+        const regExp = () => {
+            const regExp1 = new RegExp('script');
+            const regExp2 = new RegExp(/script/); 
+            const regExp3 = /script/;
+            const regExp4 = 'script'; // (x)
+
+            const str = 'javascript jquery ajax';
+            // 정규표현식 객체 메소드 test() : 해당 글자가 있으면 true 없으면 false
+            console.log(regExp3.test(str));
+            // === 문자열 메소드 includes()
+            console.log(str.includes(regExp4))
+            // 정규쵸현식 객체 메소드 exec() : 해당 글자가 없으면 null 리턴, 있으면 input, index, group등을 포함한 배열 리턴
+            console.log(regExp3.exec(str));
+            console.log(str.match(regExp3)); // === 문자열 메소드 match()
+
+            console.log(str.replace(regExp3, '스크립트'));
+            console.log(str.search(regExp3));
+            console.log(str.sclit(regExp3));
+        }
+    </script>
+    <h2> $&, $`, $'</h2>
+    <button onclick="matching();">실행확인</button>
+    <script>
+        const matching = () => {
+            const regExp = /as/;
+            const str = 'javascript jquery ajax sass';
+
+            console.log(str);
+            // $& : 제일 처음 일치하는 문자열 의미
+            console.log('$& : ' + str.replace(regExp, '($&)'));
+            // $` : 매칭된 문자열의 앞 문자열 의미
+             console.log('$` : ' + str.replace(regExp, '($`)'));
+             // $` : 매칭된 문자열의 뒤 문자열 의미
+             console.log("$'' : " + str.replace(regExp, "($')"));
+        }
+    </script>
+
+    <h2>()소괄화와 |</h2>
+    <p></p>
+    <button onclick="manyOr();">실행확인</button>
+    <script>
+        const manyOr = () => {
+            const src = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'];
+            //const regExp = /(금요일|토요일|일요일)/;
+            const regExp = /(금|토|일)요일/;
+            for(const i of src){
+                console.log(i + " : " + regExp.test(i));
+            }
+        }
+    </script>
+
+    <h2>플래그 문자</h2>
+    <button onclick="flag();">실행확인</button>
+    <script>
+        const flag = () => {
+            const str = "javascript JQuery Ajax\nJAvaScript JQuery Ajax";
+
+            const regExp0 = /a/;
+            console.log(regExp0 + " : " + str.replace(regExp0, '($&)'));
+
+            const regExp1 = /a/g; // 전역 비교 수행
+            console.log(regExp1 + " : " + str.replace(regExp1, '($&)'));
+
+            const regExp2 = /a/i; // 대소문자를 가리지 않고 비교 수행
+            console.log(regExp2 + " : " + str.replace(regExp2, '($&)'));
+
+           
+             const regExp3 = /a/gi; 
+            console.log(regExp3 + " : " + str.replace(regExp3, '($&)'));
+        }
+    </script>
+
+    <h2>앵커문자</h2>
+    <button onclick="anchorsChar();">실행확인</button>
+    <script>
+        const anchorsChar = () => {
+            const str1 = "JavaScript\nJQuery\nAjax";
+
+            const regExp1 = /^j/igm; // ^는 문자열의 시작(앞을말함)
+            // ^ 때문에 전역 변수 비교가 불가능하게 됨, m을 통해 ^&의 기준을 문자열 전체에서 각 줄마다로 변경
+            console.log(regExp1 + " : " +str1.replace(regExp1, '($&)'));
+
+            const str2 = "JavaScript\nDescription\nShellScript\nAjax";
+            const regExp2 = /ipt$/gm; // $는 문자열의 뒤를말함
+            console.log(`${regExp2} : ${str2.replace(regExp2, '($&)')}`);
+        }
+    </script>
+
+    <h2>수량문자</h2>
+    <button onclick="quantity();">실행확인</button>
+    <script>
+        const quantity = () => {
+            const src = "aabc abc bc";
+
+            const regExp1 = /a*b/g; // a*뒤에 b가 나오는것  a* : a가 0개이상
+            console.log(`${regExp1} : ${src.replace(regExp1, '($&)')}`)
+
+            const regExp2 = /a+b/g; // a+뒤에 b가 나오는것  a+가 1개이상
+            console.log(`${regExp2} : ${src.replace(regExp2, '($&)')}`)
+
+            const regExp3 = /a?b/g; // a?뒤에 b가 나오는것  a가 0개 또는 1개
+            console.log(`${regExp3} : ${src.replace(regExp3, '($&)')}`)
+        }
+    </script>
+
+    <h3>{}를 이용해서 수량표현</h3>
+    <p>
+        a{5} : a가 5개<br/>
+        a{2, 5} : a가 2~5개<br/>
+        a{2,} : a가 2개 이상
+    </p>
+    <button onclick="quantity2();">실행확인</button>
+    <script>
+        const quantity2 = () => {
+            const src = 'AA ABA ABBA ABBBA';
+            const regExp1 = /AB{0,}A/g; // == /AB*A/g
+            console.log(`${regExp1} : ${src.replace(regExp1, '($&)')}`)
+            const regExp2 = /AB{1,}/g; // == /AB+A/g
+            console.log(`${regExp2} : ${src.replace(regExp2, '($&)')}`)
+            const regExp3 = /AB{0,1}/g; // == /AB?A/g
+            console.log(`${regExp3} : ${src.replace(regExp3, '($&)')}`)
+        }
+    </script>
+
+    <h2>메타문자와 []대괄호</h2>
+    <button onclick="meta1();">실행확인</button>
+    <script>
+        const meta1 = () => {
+            const str1 = "JavaScript JQuery Ajax";
+
+            const regExp1 = /[aj]/ig;
+            console.log(`${regExp1} : ${str1.replace(regExp1, '($&)')}`);
+
+
+        const regExp2 = /[^aj]/ig; //대괄호 안에서의 ^는 시작 아니라 제외를 나타냄
+            console.log(`${regExp2} : ${str1.replace(regExp2, '($&)')}`);
+
+            const str2 = "123JavaScript";
+            const regExp3 = /[a-z]/g; //영어 소문자를 보고싶을때 사용
+            console.log(`${regExp3} : ${str2.replace(regExp3, '($&)')}`);
+            const regExp4 = /[A-Z]/g;
+            console.log(`${regExp4} : ${str2.replace(regExp4, '($&)')}`);
+            const regExp5 = /[0-9]/g;
+            console.log(`${regExp5} : ${str2.replace(regExp5, '($&)')}`);
+             const regExp6 = /[a-z0-9]/g; 
+             console.log(`${regExp6} : ${str2.replace(regExp6, '($&)')}`);
+        }
+    </script>
+
+    <h3>추가 메타 문자</h3>
+    <button onclick="meta2();">실행확인</button>
+    <script>
+        const meta2 = () => {
+            const src = 'A1 B2 c3 d_4 e:5` ffGG77--__--\t가\n나\n다';
+
+            const regExp1 = /\d/g; //숫자 == [0-9]
+            console.log(`${regExp1} : ${src.replace(regExp1, '($&)')}`)
+
+            const regExp2 = /\w/g; // 영어, 숫자, _ == [A-Za-z0-9_]
+            console.log(`${regExp2} : ${src.replace(regExp2, '($&)')}`)
+
+            const regExp3 = /\s/g; // 공백 문자(탭, 띄어쓰기, 줄바꿈) == [\n\t]
+            console.log(`${regExp3} : ${src.replace(regExp3, '($&)')}`)
+
+            const regExp4 = /\D/g; // 숫자 빼고
+            console.log(`${regExp4} : ${src.replace(regExp4, '($&)')}`)
+
+            const regExp5 = /\W/g; // 영어, 숫자, _ 뺴고
+            console.log(`${regExp5} : ${src.replace(regExp5, '($&)')}`)
+
+            const regExp6 = /\S/g; // 공백문자 빼고
+            console.log(`${regExp6} : ${src.replace(regExp6, '($&)')}`)
+
+        }
+    </script>
+
+    <h2>Escaping</h2>
+    <button onclick="escape();">실행확인</button>
+    <script>
+        const escape = () => {
+            const src = '$12$ \\-\\ $25$';
+            console.log(src); //$12$ \-\ $25$
+
+            const regExp1 = /$/; //$12$ \-\ $25$()
+            console.log(`${regExp1} : ${src.replace(regExp1, '($&)')}`);
+
+            const regExp2 = /\$/g; //$12$ \-\ $25$()
+            console.log(`${regExp2} : ${src.replace(regExp2, '($&)')}`);
+
+            const regExp3 = /\$$/; //$12$ \-\ $25$()($)
+            console.log(`${regExp3} : ${src.replace(regExp3, '($&)')}`);
+
+            const regExp4 = /\\/g; //$12$ (\)-(\) $25$()
+            console.log(`${regExp4} : ${src.replace(regExp4, '($&)')}`);
+        }
+    </script>
+
+    <h2>포인트 .</h2>
+    <button onclick="point();">실행확인</button>
+    <script>
+        const point = () => {
+            const regExp1 = /a.b/;
+            console.log(`${regExp1} : ab => ${regExp1.test('ab')}`);
+            console.log(`${regExp1} : a아b => ${regExp1.test('a아b')}`);
+            console.log(`${regExp1} : a아싸b => ${regExp1.test('a아싸b')}`);
+
+            const regExp2 = /a..b/;
+            console.log(`${regExp2} : ab => ${regExp2.test('ab')}`);
+            console.log(`${regExp2} : a아b => ${regExp2.test('a아b')}`);
+            console.log(`${regExp2} : a아싸b => ${regExp2.test('a아싸b')}`);
+
+             const regExp3 = /xy./;
+            console.log(`${regExp3} : xyz => ${regExp3.test('xyz')}`);
+            console.log(`${regExp3} : wxy => ${regExp3.test('wxy')}`);
+            console.log(`${regExp3} : xy야호 => ${regExp3.test('xy야호')}`);
+
+            const regExp4 = /in.$/;
+            console.log(`${regExp4} : going => ${regExp4.test('going')}`); //true
+            console.log(`${regExp4} : inner => ${regExp4.test('inner')}`); //false
+        }
+    </script>
+</body>
+</html>

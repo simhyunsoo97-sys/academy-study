@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>애니메이션</title>
+    <style>
+        .trans2-test{width: 250px; height: 250px;}
+        #trans2-1:hover{transform: translateX(50px);}
+        #trans2-2:hover{transform: translateY(50px);}
+        #trans2-3:hover{transform: translate(50px, 50px);}
+        #trans2-4:hover{transform: scaleX(2);}
+        #trans2-5:hover{transform: scaleY(0.5);}
+        #trans2-6:hover{transform: scale(2.2);}
+        #trans2-7:hover{transform: rotate(45deg);}
+        #trans2-8:hover{transform: skewX(45deg);}
+        #trans2-9:hover{transform: skewY(45deg);}
+        #trans2-10:hover{transform: skew(10deg, 10deg);}
+
+        .trans3-test{width: 250px; height: 200px;}
+        #trans3-1:hover{transform: perspective(300px) translate3d(100px, 100px, 100px);}
+        #trans3-2:hover{transform: perspective(300px) translateZ(100px);}
+        #trans3-3:hover{transform: perspective(300px) rotateX(30deg);}
+        #trans3-4:hover{transform: perspective(300px) rotateY(30deg);}
+        #trans3-5:hover{transform: rotateZ(30deg);}
+        
+        .to-wrap, .flower{border: 1px solid black; width: 300px; height: 200px;}
+        .to-wrap{display: inline-block;}
+        .flower:hover{transform: rotate(25deg);}
+        #left-top{transform-origin:left top ;}
+        #right-top{transform-origin:right top ;}
+        #left-bottom{transform-origin:left bottom ;}
+        #right-bottom{transform-origin:right bottom;}
+
+        .bv-test{width: 300px; height: 200px; border: 1px solid black;}
+        .bv-test:hover{transform: rotateY(180deg);}
+        #back1:hover{backface-visibility: hidden;}
+        #back2:hover{backface-visibility: visible;}
+
+        .transition{width: 100px; height: 100px; border: 1px solid black; background: red;}
+        #t1:hover{background: darkcyan;}
+        #t1{transition-duration: 3s;}
+        #t2:hover{transform: rotate(180deg); background: blue; width: 200px; height: 300px;}
+        #t2{
+            transition-duration: 2s, 3s, 1s, 5s;
+            transition-property: background-color, transform, width, height;
+        }
+
+        #t3:hover{background: paleturquoise; transform: rotate(180deg);}
+        #t3{
+            transition-duration: 4s;
+            transition-timing-function: ease;
+            transition-timing-function: linear;
+            transition-timing-function: ease-in;
+            transition-timing-function: ease-out;
+            transition-timing-function: ease-in-out;
+            /* cubic-bezier -> http://cubic-bezier.com */
+            transition-timing-function: step-start;
+            transition-timing-function: step-end;
+
+        }
+        #t4:hover{transform: rotate(180deg); background: white;}
+        #t4{transition-duration: 3s; transition-delay: 2s;}
+    </style>
+</head>
+<body>
+    <h1>변형</h1>
+
+    <!-- 1. 2차원 변형 -->
+    <h2>2차원 변형</h2>
+    <h3>좌우로 움직이기</h3>
+    <img src="sample/image/flower1.PNG" class="trans2-test" id="trans2-1">
+    <h3>위아래로 움직이기</h3>
+    <img src="sample/image/flower2.PNG" class="trans2-test" id="trans2-2">
+    <h3>대각선으로 움직이기</h3>
+    <img src="sample/image/flower3.PNG" class="trans2-test" id="trans2-3">
+    <h3>가로로 확대/축소</h3>
+    <img src="sample/image/flower4.PNG" class="trans2-test" id="trans2-4">
+    <h3>세로로 확대/축소</h3>
+    <img src="sample/image/flower5.PNG" class="trans2-test" id="trans2-5">
+    <h3>전체 확대/축소</h3>
+    <img src="sample/image/river1.PNG" class="trans2-test" id="trans2-6">
+    <h3>지정한 각도만큼 회전</h3>
+    <img src="sample/image/river2.PNG" class="trans2-test" id="trans2-7">
+    <h3>지정한 각도만큼 가로로 뒤틀기</h3>
+    <img src="sample/image/city1.PNG" class="trans2-test" id="trans2-8">
+    <h3>지정한 각도만큼 세로로 뒤틀기</h3>
+    <img src="sample/image/tower1.PNG" class="trans2-test" id="trans2-9">
+    <h3>지정한 각도만큼 전체 뒤틀기</h3>
+    <img src="sample/image/forest1.PNG" class="trans2-test" id="trans2-10">
+
+    <hr>
+
+    <!-- 2. 3차원 변형 -->
+    <h2>3차원 변형</h2>
+    <h3>지정한 크기만큼 x, y, z이동</h3>
+    <img src="sample/image/flower1.PNG" class="trans3-test" id="trans3-1">
+    <h3>지정한 크기만큼 Z축으로 이동</h3>
+    <img src="sample/image/flower2.PNG" class="trans3-test" id="trans3-2">
+    <h3>지정한 크기만큼 x축 방향으로 회전</h3>
+    <img src="sample/image/flower3.PNG" class="trans3-test" id="trans3-3">
+    <h3>지정한 크기만큼 y축 방향으로 회전</h3>
+    <img src="sample/image/flower4.PNG" class="trans3-test" id="trans3-4">
+    <h3>지정한 크기만큼 z축 방향으로 회전</h3>
+    <img src="sample/image/flower5.PNG" class="trans3-test" id="trans3-5">
+
+    <hr>
+
+    <!-- 3. 기타 변형 속성 -->
+    <h2>기타 변형 속성</h2>
+    <h3>transform-origin</h3>
+    <p>변형의 기준점을 설정할 수 있음</p>
+    <div>
+        <div class="to-wrap">
+            <img src="sample/image/flower1.PNG" class="flower" id="left-top">
+        </div>
+        <div class="to-wrap">
+            <img src="sample/image/flower1.PNG" class="flower" id="right-top">
+        </div>
+        <div class="to-wrap">
+            <img src="sample/image/flower1.PNG" class="flower" id="left-bottom">
+        </div>
+        <div class="to-wrap">
+            <img src="sample/image/flower1.PNG" class="flower" id="right-bottom">
+        </div>
+    </div>
+
+    <hr>
+
+    <h3>backface-visibility</h3>
+    <p>회전하여 뒷면이 보일 경우 뒷면을 보이게 할지 말지 정함</p>
+    <img src="sample/image/flower2.PNG" class="bv-test" id="back1">
+    <img src="sample/image/flower2.PNG" class="bv-test" id="back2">
+
+    <hr>
+    <hr>
+
+    <!-- 4. 트랜지션 -->
+    <h1>트랜지션</h1>
+    <p>시간에 따라 웹 요소의 스타일 속성이 조금씩 바뀌는 것</p>
+    <h3>트랜지션 진행 시간 지정하기</h3>
+    <div class="transition" id="t1"></div>
+    <h3>트랜지션 진행 별 시간 지정하기</h3>
+    <div class="transition" id="t2"></div>
+    <h3>트랜지션 진행 별 속도 지정하기</h3>
+    <pre>   - 선택자{transition-timing-function: linear | ease | ease-in | ease-out | ease-in-out | cubic-bezier(n,n,n,n)}</pre>
+    <div class="transition" id="t3"></div>
+    <h3>트랜지션 진행 시간 지연하기</h3>
+    <div class="transition" id="t4"></div><!-- 4로 -->
+   
+</body>
+</html>

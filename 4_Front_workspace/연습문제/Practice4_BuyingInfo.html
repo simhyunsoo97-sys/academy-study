@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice4</title>
+</head>
+<body>
+ <h3>Practice4</h3>
+
+<fieldset style="width: 300px;">
+    <legend>구매 정보</legend>
+    <div>구매자: <input type="text" id="buyer"></div>
+    <div>상품명: <input type="text" id="product"></div>
+    <div>가격: <input type="number" id="price"></div>
+    <div>구매 수량: <input type="number" id="count" min="10" max="100" step="10" value="10"></div>
+    <div>납품 등급: <input type="range" id="grade" min="1" max="9" step="2" value="1"></div>
+    <div>기타 사항: <textarea id="etc"></textarea></div>
+    </ul>
+    </fieldset>
+
+  
+
+<br>
+
+<button onclick="printInfo()">입력 값 출력하기</button>
+
+<br><br>
+
+<div id="result" style="border:1px solid; width:300px; height:100px;"></div>
+
+<script>
+    function printInfo() {
+        let buyer = document.getElementById("buyer").value;
+        let product = document.getElementById("product").value;
+        let price = document.getElementById("price").value;
+        let count = document.getElementById("count").value;
+        let grade = document.getElementById("grade").value;
+        let etc = document.getElementById("etc").value;
+
+    }
+</script>
+</body>
+ 
+    
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>배열</h1>
+    <p>자바스크립트에서는 자료형 지정이 없기 때문에 한 배열 안에 모든 자료형을 보관할 수 있음</p>
+
+    <h2>배열 선언 및 초기화</h2>
+    <p>배열 선언 시 크기를 지정하지 않고 선언할 수도 있고 크기를 정하고 선언할 수도 있음</p>
+    <button onclick="arrayTest();">확인하기</button>
+    <script>
+        const arrayTest = () => {
+            const arr1 = ['강건강', 20, true, [1, 2, 3, 4]];
+            console.log(arr1);
+            console.log(arr1[1]); // arr1을 이용하여 20출력
+            console.log(arr1[3][2]); // arr1을 이용하여 3 출력
+            //arr1 = ['a', 'b', 'c']; // Assignment to constant variable.
+            arr1[2] = false;
+            console.log(arr1);
+
+            // 배열 선언
+            const arr2 = new Array(); // 크기 미지정 배열 객체
+            const arr3 = new Array(3); // 크기 지정 배열 객체
+            console.log(arr2, arr2.length);
+            console.log(arr3, arr3.length);
+
+            arr2[0] = '귤';
+            arr2[1] = '사과';
+            arr2[2] = '바나나';
+            console.log(arr2, arr2.length);
+
+            arr3[0] = '오토바이';
+            arr3[1] = '비행기';
+            arr3[2] = '기차';
+            arr3[3] = '배';
+            console.log(arr3, arr3.length);
+
+            const arr4 = new Array('빨강', '파랑', '노랑', '초록', '검정');
+            console.log(arr4, arr4.length);
+            arr4[5] = '하양';
+            console.log(arr4, arr4.length);
+
+            const arr5 = ['java', 'oracle', 'jdbc', 'html', 'css', 'javascript'];
+            console.log(arr5, arr5.length);
+        }
+    </script>
+
+    <h2>배열 객체 메소드</h2>
+    <h3>indexOf</h3>
+    <p>배열에서 요소가 위치한 인덱스 리턴</p>
+    <button onclick="indexOfTest();">확인하기</button>
+    <script>
+        const indexOfTest = () => {
+            const arr = ['사과', '딸기', '바나나', '복숭아', '키위', '파인애플', '귤'];
+            console.log(arr);
+            console.log('바나나가 있는 인덱스 : ' + arr.indexOf('바나나')); 
+            console.log('바나나가 있는 인덱스 : ' + arr.indexOf('토마토')); 
+
+        }      
+    </script>
+    <h3>concat</h3>
+    <p>여러 개의 배열 결합</p>
+    <button onclick="concatTest();">확인하기</button>
+    <script>
+        const concatTest = () => {
+            const arr1 = ['무', '고추', '배추'];
+            const arr2 = ['상추', '감자', '고구마', '연근'];
+            console.log(arr1);
+            console.log(arr2);
+
+            const arr3 = arr1.conccat(arr2);
+            const arr4 = arr2.conccat(arr1);
+            console.log(arr3);
+            console.log(arr4);
+            console.log(arr1.concat(arr2).concat(arr1).concat(arr4).concat(arr3));
+        }
+    </script>
+    <h3>join</h3>
+    <p>배열을 결합하여 문자열로 반환</p>
+    <button onclick="joinTest();">확인하기</button>
+    <script>
+        const joinTest = () => {
+            const arr = ['강남', '역삼', '선릉', '교대'];
+            const arrJoin = arr.join();
+            console.log(arrJoin, typeof arrJoin);
+
+            const arrJoin2 = arr.join('-');
+            console.log(arrJoin2);
+        }
+    </script>
+    <h3>reverse</h3>
+    <p>배열 순서를 뒤집음</p>
+    <button onclick="reversTest();">확인하기</button>
+    <script>
+        const reversTest = () => {
+            const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+            console.log(arr);
+            console.log(arr.reverse());
+            console.log(arr); // 원본까지 같이 영향을줌
+        }
+    </script>
+    <h3>sort</h3>
+    <p>배열 내림차순 혹은 오름차순으로 정렬</p>
+    <button onclick="sortTest();">확인하기</button>
+    <script>
+        const sortTest = () => {
+            const arr1 = ['도대담', '정재주', '차청춘', '강건강', '류라라'];
+            console.log(arr1);
+            console.log(arr1.sort()); // 오름차순
+            console.log(arr1); // 원본도 같이 영향을줌
+            console.log(arr1.sort((left, right) => {
+                if(left > right) return -1;
+                if(left < right) return 1;
+                if(left == right) return 0;
+            }));
+
+            const arr2 = [10, 543, 34, 450, 123, 885];
+            console.log(arr2);
+            console.log(arr2.sort()); // 숫자배열에 대한 정렬을 해도 문자열로 보고 정렬 진행
+            console.log(arr2.sort((left, right) => {
+                return left-right;
+            }));
+            console.log(arr2.sort((left, right) => left-right));
+            // 화살표 함수의 내용이 한줄 뿐이면{}를 지울 수 있음
+            // 한 줄의 내용이 return문이면 return과 ;은 지워서 사용               
+        }
+    </script>
+    <h3>push, pop</h3>
+    <p>push() : 배열의 맨 뒤에 요소 추가<br/>pop() : 배열의 맨 뒤에 있는 요소 제거</p>
+    <button onclick="pushPopTest();">확인하기</button>
+    <script>
+        const pushPopTest = () => {
+            const arr = ['리센느', '아이오아이', '에스파', '아일릿', '하츠투하츠'];
+            console.log(arr);
+            console.log(arr.push('다비치')); // push 후의 배열 길이
+            console.log(arr);
+
+            console.log(arr.sort());
+            console.log(arr.push('엔믹스'));
+            console.log(arr);
+
+            console.log(arr.pop());
+            console.log(arr);
+            console.log(arr.pop());
+            console.log(arr);
+        }
+    </script>
+    <h3>shift, unshift</h3>
+    <p>shift() : 배열의 맨 앞에 요소 제거<br/>unshift() : 배열의 맨 앞에 요소 추가</p>
+    <button onclick="shiftUnshiftTest();">확인하기</button>
+    <script>
+        const shiftUnshiftTest = () => {
+            const arr = ['야구', '축구', '농구', '배구', '당구'];
+            console.log(arr);
+            console.log(arr.shift());
+            console.log(arr);
+
+            console.log(arr.sort());
+            console.log(arr.unshift('탁구'));
+            console.log(arr);
+        }
+    </script>
+    <h3>slice, splice</h3>
+    <p></p>
+    <button onclick="sliceSpliceTest();">확인하기</button>
+    <script>
+        const sliceSpliceTest = () => {
+            const arr = ['자바', 'DB', "JDBC", "HTML5", 'CSS3', "javascript"];
+            console.log(arr);
+
+            // slice(시작 인덱스, 끝 인덱스) : 시작인덱스 <= arr < 끝이덱스
+            console.log(arr.slice(2, 4)); 
+            // splice(index, 제거 수, 추가 값) : 제거 수, 추가 값은 생략 가능
+            console.log(arr.splice(2, 2, 'Spring')); 
+            console.log(arr);
+
+            console.log(arr.splice(1));
+            console.log(arr);
+        }
+    </script>
+    <h3>toStirng</h3>
+    <p>배열을 합쳐서 문자열로 반환</p>
+    <button onclick="toStringTest();">확인하기</button>
+    <script>
+        const toStringTest = () => {
+            const arr = ['오늘은', '허리가', '아파서', '늦었다', 'ㅠㅠ'];
+            const str = arr.toString();
+            console.log(str, typeof str);
+        }
+    </script>
+
+    <h2>보너스</h2>
+    <h3>...연산자</h3>
+    <button id="arrListOp">배열 나열 연산자</button>
+    <script>
+        document.getElementById('arrListOp').onclick = () => {
+            const arr1 = [1, 2, 3, 4];
+            const arr2 = [5, 6, 7, 8];
+            console.log(arr1);
+            console.log(...arr1); // 나열 연산자 = 전개 연산자
+
+            const combine1 = arr1.concat(arr2);
+            console.log(combine1);
+            const combine2 = [...arr1, ...arr2];
+            console.log(combine2);
+
+            const arr3 = [...arr1, 10, 20];
+            const arr4 = [arr1, 10, 20];
+            console.log(arr3);
+            console.log(arr4);
+            console.log(arr3[1]); // arr3에서 2 출력
+            console.log(arr4[0][1]); // arr4에서 2 출력 
+
+            const first = combine1[0];
+            const second = combine1[1];
+            const third = combine1[2]; // 귀찮은 방법임
+
+            // 구조 분해 할당 : 값을 해체한 후 각 데이터를 변수에 새로 할당하는 과정 
+            const [f, s, t, ...other] = combine1;
+            console.log(f)
+            console.log(s)
+            console.log(t)
+            console.log(other)
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrap *{border: 1px solid lightgray; display: block; padding: 5px; margin: 15px;}
+        .type{width: 500px;}
+
+        .highlight_0{background: hotpink;}
+        .highlight_1{background: orange;}
+        .highlight_2{background: gold;}
+        .highlight_3{background: greenyellow;}
+        .highlight_4{background: skyblue;}
+    </style>
+</head>
+<body>
+    <h1>객체 탐색</h1>
+    <h2>상위/하위 태그</h2>
+    <div class="wrap">
+        <div class="type">div (great-grandparent)
+            <ul>
+                <li>li (direct parent)
+                    <span>span1</span>
+                </li>
+                <li>li (direct parent)
+                    <span>span2</span>
+                </li>
+            </ul>
+        </div>
+        <div class="type">div (grandparent)
+            <p>p (direct parent)
+                <span>span</span>
+            </p>
+        </div>
+    </div>
+    <label>p태그를 기준으로</label>
+    <button id="p-parent">부모 태그</button>
+    <button id="p-children">자식 태그</button>
+    <br/>
+    <label>ul태그에</label>
+    <button id="use-span">span태그를 이용해 분홍색 테두리</button>
+    <button id="color-span">후손들인 span태그들에 파란색 테두리</button>
+    <br/>
+    <label>wrap에서</label>
+    <button id="wrap-children">후손들인 span태그들에 빨간 글자</button>
+    <script>
+        window.onload = () => {
+            document.getElementById('p-parent').addEventListener('click', () =>{
+                console.log(document.getElementsByTagName('P')[0]) 
+                console.log(document.getElementsByTagName('p')[0].parentElement)
+                document.getElementsByTagName('p')[0].parentElement.style.border = '2px solid green';
+            })
+            document.getElementById('p-children').addEventListener('click', () =>{
+                console.log(document.getElementsByTagName('p')[0]);
+                console.log(document.getElementsByTagName('p')[0].children);
+                document.getElementsByTagName('p')[0].children[0].style.border = '2px solid orange';
+            })
+            
+            document.getElementById('use-span').addEventListener('click', () => {
+                console.log(document.getElementsByTagName('span')[0]);
+                console.log(document.getElementsByTagName('span')[1]);
+                console.log(document.getElementsByTagName('span')[1].parentElement);
+                console.log(document.getElementsByTagName('span')[1].parentElement.parentElement);
+                document.getElementsByTagName('span')[1].parentElement.parentElement.style.border = '2px solid pink';
+            })
+
+            document.getElementById('color-span').addEventListener('click', () => {
+                console.log(document.getElementsByTagName('ul'));
+                console.log(document.getElementsByTagName('ul')[0]);
+                console.log(document.getElementsByTagName('ul')[0].children);
+                console.log(document.getElementsByTagName('ul')[0].children);
+                const lis = document.getElementsByTagName('ul')[0].children;
+                for(const li of lis){
+                    console.log(li);
+                    console.log(li.children);
+                    li.children[0].style.border = '2px solid blue';
+                }
+            })
+            document.getElementById('wrap-children').addEventListener('click', () =>{
+                const wrap = document.getElementsByClassName('wrap')[0];
+               /* const divs = wrap.children;
+                const lis = divs[0].children[0].children;
+                for(const li of lis){
+                    li.children[0].style.color = 'red';
+                }
+                const pSpan = divs[1].children[0].children[0];
+                pSpan.style.color = 'red';*/
+                console.log(wrap.querySelectorAll('span'))//.style.color = 'red';  querySelectorAll : 모든걸 다찾음 querySelector: 맨앞에 하나만찾음
+                const spans = wrap.querySelector('span');
+                for(const span of spans){
+                    span.style.color = 'red'; 
+                }
+            })        
+        }         
+    </script> 
+
+    <h2>동위 태그</h2>
+    <div class="wrap" id="sideways">div (parent)
+        <p>p</p>
+        <span>span</span>
+        <h4>h4</h4>
+        <h5>h5</h5>
+        <p>p</p>
+    </div>
+    <script>
+        window.addEventListener('load', () => {
+            console.log(document.getElementsByTagName('h4'));
+            console.log(document.querySelector('h4'));
+            document.querySelector('h4').nextElementSibling.style.border = '2px solid yellow'; // nextElementSibling: 선택된요소에 다음 한개의 요소
+            document.querySelector('h4').previousElementSibling.style.backround = 'plum';
+        })
+    </script>
+
+    <h3>객체 탐색 테스트</h3>
+    <table border="1">
+        <tr>
+            <th>이름</th>
+            <th>나이</th>
+            <th>취미</th>
+        </tr>
+        <tr>
+            <td>강건강</td>
+            <td>25</td>
+            <td>운동</td>
+        </tr>
+        <tr>
+            <td>남나눔</td>
+            <td>17</td>
+            <td>요리</td>
+        </tr>
+        <tr>
+            <td>도대담</td>
+            <td>30</td>
+            <td>등산</td>
+        </tr>        
+    </table>
+    <label>선택한 게시물 : </label>
+    <label id="selectName"></label> / <label id="selectAge"> / </label> / <label id="selectHobby"></label>
+       
+    <script>
+    window.addEventListener('load', () => {
+        const tdArr = document.getElementsByTagName('td');
+        for(const td of tdArr){
+            td.addEventListener('click',(e) => {
+                //console.log(e.target);
+                const tr = e.target.parentElement;
+
+                const tds = tr.children;
+                const name = tds[0].innerText;
+                const age = tds[1].innerText;
+                const hobby = tds[2].innerText;
+                document.getElementById('selectName').innerText = name;
+                document.getElementById('selectAge').innerText = age;
+                document.querySelector('#selectHobby').innerText = hobby;
+            })                  
+        }
+    })
+</script>
+
+<h1>객체조작</h1>
+<h2>map()</h2>
+<p>자바스크립트에서 제공하는 배열의 요소를 검사하는 함수 = for문을 함수로 옮겨놨다</p>
+<div id="jsUrlDiv"></div>
+<script>
+    window.addEventListener('load', () =>{
+        const arr = [   //객체배열
+            {name: '네이버', link: 'https://www.naver.com'},
+            {name: '구글', link: 'https://www.google.com'},
+            {name: 'w3c', link: 'https://www.w3c.com'},
+            {name: 'w3school', link: 'https://www.w3schools.com'}
+        ];
+
+        let output = '';
+        arr.map((element, index, array) => {
+            console.log(element) // 배열 안에 있는 요소(현재는 객체)
+            console.log(index)  // 배열의 index
+            console.log(array)  // map을 적용한 배열(현재는 arr)
+            console.log("-----------------------");
+            //1. 함수 인자의 이름은 꼭 element, index, array일 필요 없음 (e, i, a라고 써도됨)
+            //2. 함수 인자 개수를 꼭 3개를 다 채울 필요 없음
+            //output += '<h4><a href="' + element.link + '">' + element.name + "<a/></h4>"; 
+            // ` 백틱 ${} EL(Expression Language = 표현식)
+            output += `<h4><a href="${element.link}">${element.name}</a></h4>`    
+        });
+        document.querySelector('#jsUrlDiv').innerHTML = output;
+                   
+    })
+</script>
+<div id="jsItemDiv">
+    <h4>item-0</h4>
+    <h4>item-1</h4>
+    <h4>item-2</h4>
+    <h4>item-3</h4>
+    <h4>item-4</h4>
+</div>
+<script>
+    window.addEventListener('load', () => {
+        //const h4s = document.getElementById('jsItemDiv').children;
+        //const h4s = document.querySelector('#jsItemDiv').children;
+        const h4s = document.querySelectorAll('#jdItemDiv>h4');
+        //console.log(h4s);
+
+        // h4s.map is not a function : map은 배열에서만 사용가능
+        // h4s.map((elem, idx, arr) => {
+        //     elem.className = 'highlight_' + idx;
+        // });
+        const h4Arr = [...h4s];
+    })
+</script>
+
+<h2>객체 생성</h2>
+<ul id="jsNames">
+    <li id="doh">도대담</li>
+    <li id="yoon">윤예의</li>
+    <li id="cha">차청춘</li>
+</ul>
+<button onclick="addElement();">요소 추가</button>
+<script>
+    const addElement = () => {
+        //querySelector를 이용하여 아이디가 jsName인 ul요소를 변수 parentNode에 저장하기
+        const parentNode = document.querySelector('#jsNames');
+
+        const newAppend = document.createElement('li'); //<li></li>
+        const newAppendText =  document.createTextNode('콩쿠키'); //"콩쿠키"
+        newAppend.appendChild(newAppendText);
+        parentNode.appendChild(newAppend);
+
+        const newAppend2 = document.createElement('li');
+        newAppend2.innerHTML = '태튼튼'
+        const newAppend3 = document.createElement('li');
+        newAppend3.innerHTML = '편폭포';
+        parentNode.append(newAppend2, newAppend3);
+
+        const newPrepend1 = document.createElement('li');
+        newPrepend1.innerHTML = '남나눔';
+        parentNode.prepend(newPrepend1);
+
+        const newPrepend2 = document.createElement('li');
+        newPrepend2.innerHTML = '강건강';
+        const newPrepend3 = document.createElement('li');
+        newPrepend3.innerHTML = '홍하하';
+        parentNode.prepend(newAppend2, newAppend3);
+
+        const standardNode = document.querySelector('#yoon');
+        const newBefore = document.createElement('li');
+        const newBeforeText = document.createTextNode('송성실');
+        newBefore.append(newBeforeText);
+        parentNode.insertBefore(newBefore, standardNode);
+        // insertAfter() 라는 함수는 없음
+
+        const onlyAfter = document.createElement('li');
+        onlyAfter.innerText = '정재주';
+        standardNode.after(onlyAfter);
+
+        const onlyBefore = document.createElement('li');
+        onlyBefore.innerHTML = '박보배'
+        newBefore.before(onlyBefore);
+    }
+</script>
+        
+        
+</body>
+
+</html>
