@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<!-- 
+	
+	The content of element type "configuration" must match 
+	 "(properties?,settings?,typeAliases?,typeHandlers?,objectFactory?,
+	 objectWrapperFactory?,reflectorFactory?,plugins?,environments?,
+	 databaseIdProvider?,mappers?)".
+	
+	
+	 -->
+	
+	
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+	
+	
+	
+	<!-- DB에 연결할 설정에 대한 정보 선언 -->
+	<environments default="development"> 
+		<!-- default: 연결 설정을 여러 개 생성하여 아이디로 구분하고 기본으로 연결할 설정 정보를 default에 기입 -->
+		<environment id="development">
+			<transactionManager type="JDBC"/><!-- 트랜잭션을 누가 관리할 것인가  -->
+			<!--  JDBC :  커밋과 롤백을 직접 처리(수동) / MANAGED : 컨테이너가 트랜잭션 생명추기 관리 -->
+			
+			<dataSource type="POOLED"> <!--  실제 DB접속에 관한 정보, type은 ConnectionPool을 사용할건지에 대한 여부 --> 
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+				<property name="username" value="SCOTT"/>
+				<property name="password" value="SCOTT"/>		
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<!-- 매퍼 등록 -->
+	<mappers>
+		<mapper resource="/mappers/employee-mapper.xml"/>
+	</mappers>
+	
+	
+	
+</configuration>
+

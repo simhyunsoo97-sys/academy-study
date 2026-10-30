@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="empMapper">
+	<!--  _와 camel case 세팅 전, resultType : Employee [empNo=7839, pwd=1234] -->
+	<select id="login" parameterType="employee.model.vo.Employee" resultType="employee.model.vo.Employee">  
+<!-- 	<select id="login" parameterType="employee.model.vo.Employee" resultMap="empResultSet">  태그를구분하는용도 (이름) -->
+		select *
+		from v_employee
+		where empno = #{empNo} and pwd = #{pwd} and status='Y'
+	</select> 
+	
+	<resultMap type="employee.model.vo.Employee" id="empResultSet">
+		<result column="ename" property="empName"/>
+		<result column="MGR_NO" property="mgrNo"/>
+		<result column="DNAME" property="dept"/>
+		<result column="is_admin" property="isAdmin"/>
+	</resultMap>
+</mapper>
